@@ -11,12 +11,9 @@ namespace YahooFinanceHistoricData
             string symbol = args[0];
             string name = args[1];
 
-            Console.WriteLine("Starting...");
+            Console.WriteLine("Yahoo Finance Historic Data Grabber v0.1");
             
             Application.Run(new BrowserManipulator(symbol, name));
-
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
         }
     }
 }
