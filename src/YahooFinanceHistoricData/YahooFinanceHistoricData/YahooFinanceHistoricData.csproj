@@ -82,22 +82,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadHandler.cs" />
-    <Compile Include="BrowserManipulator.cs">
+    <Compile Include="BrowserHost.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BrowserManipulator.Designer.cs">
-      <DependentUpon>BrowserManipulator.cs</DependentUpon>
+    <Compile Include="BrowserHost.Designer.cs">
+      <DependentUpon>BrowserHost.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="DataGrabberMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="YahooBrowser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BrowserManipulator.resx">
-      <DependentUpon>BrowserManipulator.cs</DependentUpon>
+    <EmbeddedResource Include="BrowserHost.resx">
+      <DependentUpon>BrowserHost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,6 @@
-﻿namespace YahooFinanceBrowserManipulator2
+﻿namespace YahooFinanceHistoricData
 {
-    partial class BrowserManipulator
+    partial class BrowserHost
     {
         /// <summary>
         /// Required designer variable.
