@@ -6,7 +6,7 @@ namespace YahooFinanceHistoricData
 {
     internal class DataGrabberMain
     {
-        internal static void Main(string[] args)
+        internal static int Main(string[] args)
         {
             string symbol = args[0];
             string name = args[1];
@@ -20,10 +20,16 @@ namespace YahooFinanceHistoricData
             Console.WriteLine("Yahoo Finance Historic Data Grabber v0.1");
             Console.WriteLine("Downloading: " + symbol);
 
+            int returnCode = 10;
             using (var yahooBrowser = new YahooBrowser(symbol, name, downloadDirectory))
             {
-                Application.Run(new BrowserHost(yahooBrowser));
+                var host = new BrowserHost(yahooBrowser);
+                Application.Run(host);
+
+                returnCode = host.ReturnCode;
             }
+
+            return returnCode;
         }
     }
 }
