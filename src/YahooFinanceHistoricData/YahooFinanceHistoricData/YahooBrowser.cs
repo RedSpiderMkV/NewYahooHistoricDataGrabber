@@ -74,6 +74,12 @@ namespace YahooFinanceHistoricData
                         string containsStr = string.Format(LINK_INDEX_TEMPLATE, _symbol);
 
                         int startStrIndex = responseStr.IndexOf(containsStr);
+
+                        if(startStrIndex < 0)
+                        {
+                            return;
+                        }
+
                         int endStrIndex = responseStr.IndexOf('"', startStrIndex);
 
                         string newLink = responseStr.Substring(startStrIndex, endStrIndex - startStrIndex).Replace("&amp;", "&");

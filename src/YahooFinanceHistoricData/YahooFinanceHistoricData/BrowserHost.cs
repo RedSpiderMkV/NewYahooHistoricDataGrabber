@@ -29,13 +29,29 @@ namespace YahooFinanceHistoricData
         private void _yahooBrowser_OnDownloadUpdateComplete(object sender, EventArgs e)
         {
             Console.WriteLine("APPLICATION: Download OK.");
-            Application.Exit();
+            
+            if(this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => this.Close()));
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             Console.WriteLine("APPLICATION: Time out...");
-            Application.Exit();
+            
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => this.Close()));
+            }
+            else
+            {
+                this.Close();
+            }
         }
     }
 }
