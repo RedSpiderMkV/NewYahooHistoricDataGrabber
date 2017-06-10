@@ -38,14 +38,16 @@
             this.panel1.Size = new System.Drawing.Size(10, 10);
             this.panel1.TabIndex = 0;
             // 
-            // BrowserManipulator
+            // BrowserHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(116, 34);
             this.Controls.Add(this.panel1);
-            this.Name = "BrowserManipulator";
+            this.Name = "BrowserHost";
+            this.ShowInTaskbar = false;
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.ResumeLayout(false);
 
         }

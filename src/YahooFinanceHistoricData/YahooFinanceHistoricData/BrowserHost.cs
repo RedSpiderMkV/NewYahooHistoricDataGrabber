@@ -10,10 +10,8 @@ namespace YahooFinanceHistoricData
         public BrowserHost(YahooBrowser yahooBrowser)
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Minimized;
-            this.ShowInTaskbar = false;
 
-            yahooBrowser.OnDownloadUpdateComplete += _yahooBrowser_OnDownloadUpdateComplete;
+            yahooBrowser.OnDownloadUpdateComplete += YahooBrowser_OnDownloadUpdateComplete;
             panel1.Controls.Add(yahooBrowser.Browser);
 
             Timer timer = new Timer();
@@ -23,7 +21,7 @@ namespace YahooFinanceHistoricData
             timer.Start();
         }
 
-        private void _yahooBrowser_OnDownloadUpdateComplete(object sender, EventArgs e)
+        private void YahooBrowser_OnDownloadUpdateComplete(object sender, EventArgs e)
         {
             ReturnCode = 0;
             CloseForm("APPLICATION: Download OK.");

@@ -1,5 +1,4 @@
 ﻿using CefSharp;
-using CefSharp.Example;
 using CefSharp.WinForms;
 using System;
 using System.Threading.Tasks;
@@ -22,27 +21,23 @@ namespace YahooFinanceHistoricData
 
         #region Public Methods
 
-        public YahooBrowser(string symbol, string name, string saveDirectory)
+        public YahooBrowser(string symbol, ChromiumWebBrowser webBrowser)
         {
-            _name = name;
             _symbol = symbol;
-            _saveDirectory = saveDirectory;
+            _browser = webBrowser;
 
-            string fileName = $"{_name}_{_symbol}.csv";
-            _downloadHandler = new DownloadHandler(saveDirectory, fileName);
-
-            string url = string.Format(URL_TEMPLATE, symbol);
-            _browser = new ChromiumWebBrowser(url);
-            _browser.DownloadHandler = _downloadHandler;
-
-            _downloadHandler.OnDownloadUpdatedFired += DownloadHandler_OnDownloadUpdatedFired;
+            ((DownloadHandler)_browser.DownloadHandler).OnDownloadUpdatedFired += DownloadHandler_OnDownloadUpdatedFired;
             _browser.LoadingStateChanged += Browser_LoadingStateChanged;
         }
 
         public void Dispose()
         {
-            _downloadHandler.OnDownloadUpdatedFired -= DownloadHandler_OnDownloadUpdatedFired;
             _browser.LoadingStateChanged -= Browser_LoadingStateChanged;
+
+            if (_browser.DownloadHandler != null)
+            {
+                ((DownloadHandler)_browser.DownloadHandler).OnDownloadUpdatedFired -= DownloadHandler_OnDownloadUpdatedFired;
+            }
         }
 
         #endregion
@@ -60,7 +55,6 @@ namespace YahooFinanceHistoricData
             if (!e.IsLoading)
             {
                 var frame = _browser.GetMainFrame();
-                // Get Document Height
                 var task = frame.EvaluateScriptAsync("(function() { return document.body.innerHTML; })();", null);
 
                 task.ContinueWith(t =>
@@ -97,11 +91,8 @@ namespace YahooFinanceHistoricData
         private readonly DownloadHandler _downloadHandler;
 
         private readonly string _symbol;
-        private readonly string _name;
-        private readonly string _saveDirectory;
 
         private const string LINK_INDEX_TEMPLATE = "https://query1.finance.yahoo.com/v7/finance/download/{0}?period1";
-        private const string URL_TEMPLATE = "https://finance.yahoo.com/quote/{0}/history?period1=852076800&period2=1924905600&interval=1d&filter=history&frequency=1d";
 
         #endregion
     }

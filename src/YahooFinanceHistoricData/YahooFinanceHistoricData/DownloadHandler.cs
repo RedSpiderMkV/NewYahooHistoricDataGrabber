@@ -1,17 +1,18 @@
-﻿// Copyright © 2010-2017 The CefSharp Authors. All rights reserved.
-//
-// Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
-
-using System;
+﻿using System;
 using System.IO;
+using CefSharp;
 
-namespace CefSharp.Example
+namespace YahooFinanceHistoricData
 {
     public class DownloadHandler : IDownloadHandler
     {
-        public event EventHandler<DownloadItem> OnBeforeDownloadFired;
+        #region Events
 
         public event EventHandler<DownloadItem> OnDownloadUpdatedFired;
+
+        #endregion
+
+        #region Public Methods
 
         public DownloadHandler(string downloadDirectory, string fileName)
         {
@@ -21,12 +22,6 @@ namespace CefSharp.Example
 
         public void OnBeforeDownload(IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
         {
-            var handler = OnBeforeDownloadFired;
-            if (handler != null)
-            {
-                handler(this, downloadItem);
-            }
-
             if (!callback.IsDisposed)
             {
                 using (callback)
@@ -45,7 +40,13 @@ namespace CefSharp.Example
             }
         }
 
+        #endregion
+
+        #region Private Data
+
         private readonly string _directoryName;
         private readonly string _fileName;
+
+        #endregion
     }
 }
