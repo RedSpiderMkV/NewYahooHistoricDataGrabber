@@ -7,10 +7,15 @@ namespace YahooFinanceHistoricData
 {
     internal class DataGrabberMain
     {
-        private const string URL_TEMPLATE = "https://finance.yahoo.com/quote/{0}/history?period1=852076800&period2=1924905600&interval=1d&filter=history&frequency=1d";
+        // those timestamps are unix timestamps
+        private const string URL_TEMPLATE = "https://finance.yahoo.com/quote/{0}/history?period1={1}&period2={2}&interval=1d&filter=history&frequency=1d";
 
         internal static int Main(string[] args)
         {
+            long epochTicks = new DateTime(1970, 1, 1).Ticks;
+            long startUnixTime = (((new DateTime(2017, 11, 1)).Ticks - epochTicks) / TimeSpan.TicksPerSecond);
+            long endUnixTime = (((new DateTime(2017, 11, 15)).Ticks - epochTicks) / TimeSpan.TicksPerSecond);
+
             string symbol = args[0];
             string name = args[1];
             string downloadDirectory = @"Data";
@@ -25,7 +30,7 @@ namespace YahooFinanceHistoricData
 
             int returnCode = 10;
             string fileName = $"{name}_{symbol}.csv";
-            string url = string.Format(URL_TEMPLATE, symbol);
+            string url = string.Format(URL_TEMPLATE, symbol, startUnixTime, endUnixTime);
 
             var downloadHandler = new DownloadHandler(downloadDirectory, fileName);
             var webBrowser = new ChromiumWebBrowser(url);
